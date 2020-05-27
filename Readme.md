@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Eva Maria](https://up.htmlacademy.ru/javascript/20/user/1100147).
-* Наставник: `Неизвестно`.
+* Наставник: [Дмитрий Быков](https://up.htmlacademy.ru/javascript/20/user/618225).
 
 ---
 
