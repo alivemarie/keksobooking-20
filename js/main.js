@@ -36,14 +36,16 @@ var getRandomNumber = function (min, max) {
 var generateCard = function (cardId) {
 
   // Создаем массив строк случайной длины для features
-  var features = FEATURES.sort(function () {
+  var features = FEATURES.slice();
+  features.sort(function () {
     return 0.5 - Math.random();
   });
   var featuresNumber = getRandomNumber(1, FEATURES.length);
   features = features.slice(0, featuresNumber);
 
   // Создаем массив строк случайной длины для photos
-  var photos = PHOTOS.sort(function () {
+  var photos = PHOTOS.slice();
+  photos.sort(function () {
     return 0.5 - Math.random();
   });
   var photosNumber = getRandomNumber(1, PHOTOS.length);
