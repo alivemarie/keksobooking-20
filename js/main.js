@@ -3,7 +3,7 @@ document.querySelector('.map').classList.remove('map--faded');
 
 var mapPinsField = document.querySelector('.map__pins');
 var templatePin = document.querySelector('#pin').content.querySelector('button');
-
+var pinShiftLeft = 50;
 var OFFERS_NUMBER = 8;
 var TITLES = ['Особняк', 'Аппартаменты', 'Студия', 'Хостел', 'Номер в отеле'];
 var DESCRIPTIONS = ['Небольшой частный домик в хорошем районе, подходит для путешествующих семьёй, расположение позволяет посетить множество достопримечательностей неподалёку',
@@ -66,7 +66,7 @@ var generateCard = function (cardId) {
       photos: photos
     },
     location: {
-      x: getRandomNumber(mapPinsField.clientLeft, mapPinsField.clientWidth),
+      x: getRandomNumber(mapPinsField.clientLeft, mapPinsField.clientWidth - pinShiftLeft),
       y: getRandomNumber(130, 631)
     }
   };
@@ -80,8 +80,10 @@ var generatePin = function (id) {
   var newPin = templatePin.cloneNode(true);
   newPin.querySelector('img').src = offersCards[id].author.avatar;
   newPin.querySelector('img').alt = offersCards[id].offer.title;
-  newPin.style.left = offersCards[id].location.x + 'px';
-  newPin.style.top = offersCards[id].location.y + 'px';
+  var newPinX = offersCards[id].location.x - (newPin.offsetWidth / 2);
+  var newPinY = offersCards[id].location.y - newPin.offsetHeight;
+  newPin.style.left = newPinX + 'px';
+  newPin.style.top = newPinY + 'px';
   return newPin;
 };
 
