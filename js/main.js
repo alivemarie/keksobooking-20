@@ -31,68 +31,68 @@ var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditio
 
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
-}
+};
 
 var generateCard = function (cardId) {
 
   // Создаем массив строк случайной длины для features
-  var features = FEATURES.slice();
+  var features = FEATURES.sort(function () {
+    return 0.5 - Math.random();
+  });
   var featuresNumber = getRandomNumber(1, FEATURES.length);
-  for (var i = 0; i < featuresNumber; i++) {
-    features.splice(getRandomNumber(0, features.length),1);
-  }
+  features = features.slice(0, featuresNumber);
 
   // Создаем массив строк случайной длины для photos
-  var photos = PHOTOS.slice();
-  var photosNumber = getRandomNumber(1,PHOTOS.length);
-  for (var i = 0; i < photosNumber; i++) {
-    photos.splice(getRandomNumber(0,photos.length),1);
-  }
+  var photos = PHOTOS.sort(function () {
+    return 0.5 - Math.random();
+  });
+  var photosNumber = getRandomNumber(1, PHOTOS.length);
+  photos = photos.slice(0, photosNumber);
 
   var card = {
     author: {
       avatar: 'img/avatars/user0' + ++cardId + '.png'
     },
     offer: {
-      title: TITLES[getRandomNumber(0,TITLES.length)],
-      price: getRandomNumber(1000,10000),
-      type: PROPERTY_TYPE[getRandomNumber(0,PROPERTY_TYPE.length)],
-      rooms: getRandomNumber(1,7),
-      guests: getRandomNumber(1,13),
-      checkin: TIME_CHECKIN[getRandomNumber(0,TIME_CHECKIN.length)],
-      checkout: TIME_CHECKOUT[getRandomNumber(0,TIME_CHECKOUT.length)],
+      title: TITLES[getRandomNumber(0, TITLES.length)],
+      price: getRandomNumber(10000, 100000),
+      type: PROPERTY_TYPE[getRandomNumber(0, PROPERTY_TYPE.length)],
+      rooms: getRandomNumber(1, 4),
+      guests: getRandomNumber(0, 3),
+      checkin: TIME_CHECKIN[getRandomNumber(0, TIME_CHECKIN.length)],
+      checkout: TIME_CHECKOUT[getRandomNumber(0, TIME_CHECKOUT.length)],
       features: features,
-      description: DESCRIPTIONS[getRandomNumber(0,DESCRIPTIONS.length)],
+      description: DESCRIPTIONS[getRandomNumber(0, DESCRIPTIONS.length)],
       photos: photos
     },
     location: {
-      x: getRandomNumber(mapPinsField.clientLeft,mapPinsField.clientWidth),
-      y: getRandomNumber(130,631)
+      x: getRandomNumber(mapPinsField.clientLeft, mapPinsField.clientWidth),
+      y: getRandomNumber(130, 631)
     }
-  }
+  };
 
   card.offer.address = card.location.x + ', ' + card.location.y;
 
   return card;
-}
+};
 
-var generatePin = function(id) {
+var generatePin = function (id) {
   var newPin = templatePin.cloneNode(true);
   newPin.querySelector('img').src = offersCards[id].author.avatar;
   newPin.querySelector('img').alt = offersCards[id].offer.title;
   newPin.style.left = offersCards[id].location.x + 'px';
   newPin.style.top = offersCards[id].location.y + 'px';
   return newPin;
-}
+};
 
 
-var generateFragment = function() {
+var generateFragment = function () {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < OFFERS_NUMBER; i++) {
     fragment.appendChild(generatePin(i));
   }
   return fragment;
-}
+};
 
 var offersCards = [];
 for (var i = 0; i < OFFERS_NUMBER; i++) {
