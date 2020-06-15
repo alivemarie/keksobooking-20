@@ -116,14 +116,14 @@ var getAddressCoords = function (currentPin) {
 };
 
 var disableElements = function (parent) {
-  for (var i = 0; i < parent.length; i++) {
-    parent[i].disabled = true;
+  for (var elementDisable = 0; elementDisable < parent.length; elementDisable++) {
+    parent[elementDisable].disabled = true;
   }
 };
 
 var enableElements = function (parent) {
-  for (var i = 0; i < parent.length; i++) {
-    parent[i].disabled = false;
+  for (var elementEnable = 0; elementEnable < parent.length; elementEnable++) {
+    parent[elementEnable].disabled = false;
   }
 };
 
@@ -244,8 +244,8 @@ adTimeOut.addEventListener('change', function () {
 });
 
 adRoomNumber.addEventListener('change', function () {
-  for (var i = 0; i < adCapacity.length; i++) {
-    adCapacity[i].disabled = true;
+  for (var people = 0; people < adCapacity.length; people++) {
+    adCapacity[people].disabled = true;
   }
   adCapacity.setCustomValidity('');
   switch (adRoomNumber.value) {
