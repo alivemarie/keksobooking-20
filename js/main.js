@@ -134,12 +134,16 @@ var deactivatePage = function () {
   if (!document.querySelector('.map').classList.contains('map--faded')) {
     document.querySelector('.map').classList.add('map--faded');
   }
+  if (!adForm.classList.contains('ad-form--disabled')) {
+    adForm.classList.add('ad-form--disabled');
+  }
 };
 
 var activatePage = function () {
   enableElements(adFormElements);
   enableElements(mapFilters);
   document.querySelector('.map').classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
 };
 
 deactivatePage();
@@ -182,6 +186,18 @@ var adCapacity = adForm.querySelector('#capacity');
 var MIN_NAME_LENGTH = 30;
 var MAX_NAME_LENGTH = 100;
 var inputLength = 0;
+var RoomnumberValue = {
+  ONE_ROOM: '1',
+  TWO_ROOMS: '2',
+  THREE_ROOMS: '3',
+  HUNDRED: '100'
+};
+var CapacityValue = {
+  ONE_GUEST: 2,
+  TWO_GUESTS: 1,
+  THREE_GUESTS: 0,
+  NO_GUESTS: 3
+};
 
 adTitle.addEventListener('input', function () {
   inputLength = adTitle.value.length;
@@ -249,30 +265,30 @@ adRoomNumber.addEventListener('change', function () {
   }
   adCapacity.setCustomValidity('');
   switch (adRoomNumber.value) {
-    case '1':
-      adCapacity[2].disabled = false;
-      if (adCapacity.selectedIndex !== 2) {
+    case RoomnumberValue.ONE_ROOM:
+      adCapacity[CapacityValue.ONE_GUEST].disabled = false;
+      if (adCapacity.selectedIndex !== CapacityValue.ONE_GUEST) {
         adCapacity.setCustomValidity('Количество комнат не подходит под количество людей, измените значения');
       }
       break;
-    case '2':
-      adCapacity[2].disabled = false;
-      adCapacity[1].disabled = false;
-      if ((adCapacity.selectedIndex !== 2) || (adCapacity.selectedIndex !== 1)) {
+    case RoomnumberValue.TWO_ROOMS:
+      adCapacity[CapacityValue.ONE_GUEST].disabled = false;
+      adCapacity[CapacityValue.TWO_GUESTS].disabled = false;
+      if ((adCapacity.selectedIndex !== CapacityValue.ONE_GUEST) || (adCapacity.selectedIndex !== CapacityValue.TWO_GUESTS)) {
         adCapacity.setCustomValidity('Количество комнат не подходит под количество людей, измените значения');
       }
       break;
-    case '3':
-      adCapacity[0].disabled = false;
-      adCapacity[1].disabled = false;
-      adCapacity[2].disabled = false;
-      if (adCapacity.selectedIndex === 3) {
+    case RoomnumberValue.THREE_ROOMS:
+      adCapacity[CapacityValue.THREE_GUESTS].disabled = false;
+      adCapacity[CapacityValue.TWO_GUESTS].disabled = false;
+      adCapacity[CapacityValue.ONE_GUEST].disabled = false;
+      if (adCapacity.selectedIndex === CapacityValue.NO_GUESTS) {
         adCapacity.setCustomValidity('Количество комнат не подходит под количество людей, измените значения');
       }
       break;
-    case '100':
-      adCapacity[3].disabled = false;
-      if (adCapacity.selectedIndex !== 3) {
+    case RoomnumberValue.HUNDRED:
+      adCapacity[CapacityValue.NO_GUESTS].disabled = false;
+      if (adCapacity.selectedIndex !== CapacityValue.NO_GUESTS) {
         adCapacity.setCustomValidity('Количество комнат не подходит под количество людей, измените значения');
       }
   }
