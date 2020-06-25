@@ -1,5 +1,4 @@
 'use strict';
-/*
 (function () {
   var templateCard = document.querySelector('#card').content.querySelector('article');
   var propertyTypeDict = {
@@ -122,4 +121,3 @@
 
   document.querySelector('.map__filters-container').before(newCard);
 })();
-*/
