@@ -15,6 +15,7 @@
     y: mainPin.offsetTop
   };
 
+
   var getAddressCoords = function (currentPin) {
     return Math.round(currentPin.offsetLeft + currentPin.offsetWidth / 2) + ', ' + Math.round(currentPin.offsetTop + currentPin.offsetHeight + PIN_LEG);
   };
@@ -34,7 +35,6 @@
   var deactivatePage = function () {
     disableElements(adFormElements);
     disableElements(mapFilters);
-    addressField.value = Math.round(mainPin.offsetLeft + mainPin.offsetWidth / 2) + ', ' + Math.round(mainPin.offsetTop + mainPin.offsetHeight / 2);
     if (!document.querySelector('.map').classList.contains('map--faded')) {
       document.querySelector('.map').classList.add('map--faded');
     }
@@ -42,35 +42,29 @@
       adForm.classList.add('ad-form--disabled');
     }
     window.formValidation.removeFormValidationListeners();
-    mainPin.style.left = initialMainPinCoords.x;
-    mainPin.style.top = initialMainPinCoords.y;
-    addressField.value = getAddressCoords(mainPin);
+    mainPin.style.left = initialMainPinCoords.x + 'px';
+    mainPin.style.top = initialMainPinCoords.y + 'px';
+    addressField.value = Math.round(mainPin.offsetLeft + mainPin.offsetWidth / 2) + ', ' + Math.round(mainPin.offsetTop + mainPin.offsetHeight / 2);
     isPageActive = false;
   };
 
   var activatePage = function () {
-    enableElements(adFormElements);
-    enableElements(mapFilters);
-    document.querySelector('.map').classList.remove('map--faded');
-    adForm.classList.remove('ad-form--disabled');
-    window.formValidation.addFormValidationListeners();
-    mapPinsField.appendChild(window.generateFragment());
-    addressField.value = getAddressCoords(mainPin);
-    isPageActive = true;
+    if (!isPageActive) {
+      enableElements(adFormElements);
+      enableElements(mapFilters);
+      document.querySelector('.map').classList.remove('map--faded');
+      adForm.classList.remove('ad-form--disabled');
+      window.formValidation.addFormValidationListeners();
+      mapPinsField.appendChild(window.generateFragment());
+      addressField.value = getAddressCoords(mainPin);
+      isPageActive = true;
+    }
   };
 
   deactivatePage();
 
   // Взаимодействие в меткой можно позже вынести в модуль map.js
-  mainPin.addEventListener('mousedown', function (evt) {
-    if ((evt.buttons === 1) && (!isPageActive)) {
-      activatePage();
-      // todo позже реализовать функционал перетаскивания главной метки
-      addressField.value = getAddressCoords(mainPin);
-    } else if ((evt.buttons === 1) && (isPageActive)) {
-      addressField.value = getAddressCoords(mainPin);
-    }
-  });
+  mainPin.addEventListener('mousedown', window.map.draggingPin);
 
   mainPin.addEventListener('keydown', function (evt) {
     if (evt.key === 'Enter') {
@@ -79,6 +73,7 @@
     }
   });
 
+  // Сброс формы
   adFormReset.addEventListener('mousedown', function (evt) {
     if (evt.buttons === 1) {
       deactivatePage();
@@ -90,4 +85,9 @@
       deactivatePage();
     }
   });
+
+  window.formActivation = {
+    activatePage: activatePage,
+    getAddressCoords: getAddressCoords
+  };
 })();
