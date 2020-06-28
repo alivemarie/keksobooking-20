@@ -87,12 +87,12 @@
   // этот функционал можно позже вынести в map.js
   var templatePin = document.querySelector('#pin').content.querySelector('button');
 
-  var generatePin = function (id) {
+  var generatePin = function (pinData) {
     var newPin = templatePin.cloneNode(true);
-    newPin.querySelector('img').src = window.data.offersCards[id].author.avatar;
-    newPin.querySelector('img').alt = window.data.offersCards[id].offer.title;
-    var newPinX = window.data.offersCards[id].location.x - (newPin.offsetWidth / 2);
-    var newPinY = window.data.offersCards[id].location.y - newPin.offsetHeight;
+    newPin.querySelector('img').src = pinData.author.avatar;
+    newPin.querySelector('img').alt = pinData.offer.title;
+    var newPinX = pinData.location.x - (newPin.offsetWidth / 2);
+    var newPinY = pinData.location.y - newPin.offsetHeight;
     newPin.style.left = newPinX + 'px';
     newPin.style.top = newPinY + 'px';
     return newPin;
@@ -101,7 +101,9 @@
   var generateFragment = function () {
     var fragment = document.createDocumentFragment();
     for (var pin = 0; pin < OFFERS_NUMBER; pin++) {
-      fragment.appendChild(generatePin(pin));
+      var newPinOnMap = generatePin(offersCards[pin]);
+      window.card.onClickAddCard(newPinOnMap, offersCards[pin]);
+      fragment.appendChild(newPinOnMap);
     }
     return fragment;
   };
