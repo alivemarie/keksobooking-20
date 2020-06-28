@@ -83,8 +83,7 @@
     offersCards: offersCards,
   };
 
-  // Генерируем пины на карте и добавляем на страницу с помощью Document Fragment,
-  // этот функционал можно позже вынести в map.js
+  // Генерируем пины на карте и добавляем на страницу с помощью Document Fragment
   var templatePin = document.querySelector('#pin').content.querySelector('button');
 
   var generatePin = function (pinData) {
