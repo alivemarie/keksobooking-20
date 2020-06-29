@@ -78,7 +78,7 @@
   }
 
   // Экспорт массива сгенерированных данных
-  window.data = {
+  window.generatePins = {
     FEATURES: FEATURES,
     offersCards: offersCards,
   };
@@ -100,8 +100,8 @@
   var generateFragment = function () {
     var fragment = document.createDocumentFragment();
     for (var pin = 0; pin < OFFERS_NUMBER; pin++) {
-      var newPinOnMap = generatePin(offersCards[pin]);
-      window.card.onClickAddCard(newPinOnMap, offersCards[pin]);
+      var newPinOnMap = generatePin(window.data.dataArray[pin]);
+      window.card.onClickAddCard(newPinOnMap, window.data.dataArray[pin]);
       fragment.appendChild(newPinOnMap);
     }
     return fragment;
