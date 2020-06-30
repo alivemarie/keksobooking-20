@@ -85,9 +85,9 @@
         newCard.querySelector('.popup__text--time').classList.add('hidden');
       }
 
-      for (var feature = 0; feature < window.data.FEATURES.length; feature++) {
-        var featureClass = '.popup__feature--' + window.data.FEATURES[feature];
-        if (!cardData.offer.features.includes(window.data.FEATURES[feature])) {
+      for (var feature = 0; feature < window.generatePins.FEATURES.length; feature++) {
+        var featureClass = '.popup__feature--' + window.generatePins.FEATURES[feature];
+        if (!cardData.offer.features.includes(window.generatePins.FEATURES[feature])) {
           newCard.querySelector(featureClass).classList.add('hidden');
         }
       }
