@@ -4,11 +4,11 @@
   var adForm = document.querySelector('.ad-form');
   var adFormElements = adForm.children;
   var mapFilters = document.querySelector('.map__filters').children;
+  var mapPinsField = document.querySelector('.map__pins');
   var addressField = document.querySelector('#address');
   var mainPin = document.querySelector('.map__pin--main');
   var PIN_LEG = 20;
   var adFormReset = document.querySelector('.ad-form__reset');
-  var mapPinsField = document.querySelector('.map__pins');
   var isPageActive = false;
   var initialMainPinCoords = {
     x: mainPin.offsetLeft,
@@ -55,10 +55,13 @@
       document.querySelector('.map').classList.remove('map--faded');
       adForm.classList.remove('ad-form--disabled');
       window.formValidation.addFormValidationListeners();
-      mapPinsField.appendChild(window.generateFragment());
+      window.data.loadData(onDownload);
       addressField.value = getAddressCoords(mainPin);
       isPageActive = true;
     }
+  };
+  var onDownload = function (data) {
+    mapPinsField.appendChild(window.generatePins.generateFragment(data));
   };
 
   deactivatePage();
