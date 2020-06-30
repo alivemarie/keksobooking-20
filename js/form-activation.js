@@ -46,6 +46,11 @@
     mainPin.style.top = initialMainPinCoords.y + 'px';
     addressField.value = Math.round(mainPin.offsetLeft + mainPin.offsetWidth / 2) + ', ' + Math.round(mainPin.offsetTop + mainPin.offsetHeight / 2);
     isPageActive = false;
+    var pinsForDelete = mapPinsField.querySelectorAll('button:not(.map__pin--main)');
+    for (var pin = 0; pin < pinsForDelete.length; pin++) {
+      pinsForDelete[pin].remove();
+    }
+    adForm.reset();
   };
 
   var activatePage = function () {
@@ -87,6 +92,12 @@
     if (evt.key === 'Enter') {
       deactivatePage();
     }
+  });
+
+  adForm.addEventListener('submit', function (evt) {
+    window.data.sendData(new FormData(adForm));
+    evt.preventDefault();
+    deactivatePage();
   });
 
   window.formActivation = {
