@@ -29,6 +29,7 @@
     xhr.addEventListener('load', function () {
       if (xhr.status === statusCode.OK) {
         onLoad(xhr.response);
+        window.loadedData = xhr.response;
       } else {
         onErrorMessage('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }

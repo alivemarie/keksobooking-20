@@ -56,17 +56,14 @@
   var activatePage = function () {
     if (!isPageActive) {
       enableElements(adFormElements);
-      enableElements(mapFilters);
       document.querySelector('.map').classList.remove('map--faded');
       adForm.classList.remove('ad-form--disabled');
       window.formValidation.addFormValidationListeners();
-      window.data.loadData(onDownload);
+      window.data.loadData(window.render.renderPins);
+      enableElements(mapFilters);
       addressField.value = getAddressCoords(mainPin);
       isPageActive = true;
     }
-  };
-  var onDownload = function (data) {
-    mapPinsField.appendChild(window.generatePins.generateFragment(data));
   };
 
   deactivatePage();
@@ -102,6 +99,6 @@
 
   window.formActivation = {
     activatePage: activatePage,
-    getAddressCoords: getAddressCoords
+    getAddressCoords: getAddressCoords,
   };
 })();

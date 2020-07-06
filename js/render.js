@@ -1,11 +1,8 @@
 'use strict';
 (function () {
-  var OFFERS_NUMBER = 8;
+  var mapPinsField = document.querySelector('.map__pins');
+  var OFFERS_NUMBER = 5;
   var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-
-  window.generatePins = {
-    FEATURES: FEATURES,
-  };
 
   // Генерируем пины на карте и добавляем на страницу с помощью Document Fragment
   var templatePin = document.querySelector('#pin').content.querySelector('button');
@@ -23,7 +20,8 @@
 
   var generateFragment = function (data) {
     var fragment = document.createDocumentFragment();
-    for (var pin = 0; pin < OFFERS_NUMBER; pin++) {
+    var takeNumber = data.length > OFFERS_NUMBER ? OFFERS_NUMBER : data.length;
+    for (var pin = 0; pin < takeNumber; pin++) {
       var newPinOnMap = generatePin(data[pin]);
       window.card.onClickAddCard(newPinOnMap, data[pin]);
       fragment.appendChild(newPinOnMap);
@@ -31,8 +29,15 @@
     return fragment;
   };
 
-  window.generatePins = {
-    generateFragment: generateFragment
+  window.render = {
+    FEATURES: FEATURES,
+    renderPins: function (data) {
+      var pinsForDelete = mapPinsField.querySelectorAll('button:not(.map__pin--main)');
+      for (var pin = 0; pin < pinsForDelete.length; pin++) {
+        pinsForDelete[pin].remove();
+      }
+      mapPinsField.appendChild(generateFragment(data));
+    }
   };
 
 })();
