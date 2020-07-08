@@ -1,20 +1,20 @@
 'use strict';
 (function () {
-  var HousingType = {
-    '0': 'any',
-    '1': 'palace',
-    '2': 'flat',
-    '3': 'house',
-    '4': 'bungalo'
-  };
   var housingTypeSelect = document.querySelector('#housing-type');
   var onChangeHousingType = function () {
     var filteredPins = window.loadedData.slice();
-    var newFilteredPins = filteredPins.filter(function (it) {
-      return it.offer.type === HousingType[housingTypeSelect.selectedIndex];
-    });
-    window.cardPopup.closePopup();
-    window.render.renderPins(newFilteredPins);
+    var lastFilteredPins = [];
+    if (housingTypeSelect.value === 'any') {
+      lastFilteredPins = filteredPins.slice();
+    } else {
+      lastFilteredPins = filteredPins.filter(function (it) {
+        return it.offer.type === housingTypeSelect.value;
+      });
+    }
+    if (document.querySelector('.map__card')) {
+      window.cardPopup.closePopup();
+    }
+    window.render.renderPins(lastFilteredPins);
   };
 
   housingTypeSelect.addEventListener('change', onChangeHousingType);

@@ -48,7 +48,7 @@
   var sendData = function (data) {
     var onSuccess = function () {
       var closeSuccessPopup = function () {
-        newSuccessPopup.remove();
+        lastSuccessPopup.remove();
         document.removeEventListener('click', closeSuccessPopup);
         document.removeEventListener('keydown', onEscCloseSuccessPopup);
       };
@@ -60,16 +60,16 @@
         }
       };
 
-      var newSuccessPopup = successPopupTemplate.cloneNode(true);
+      var lastSuccessPopup = successPopupTemplate.cloneNode(true);
       document.addEventListener('click', closeSuccessPopup);
       document.addEventListener('keydown', onEscCloseSuccessPopup);
 
-      main.appendChild(newSuccessPopup);
+      main.appendChild(lastSuccessPopup);
     };
 
     var onError = function () {
       var closeErrorPopup = function () {
-        newErrorPopup.remove();
+        lastErrorPopup.remove();
         document.removeEventListener('click', closeErrorPopup);
         document.removeEventListener('keydown', onEscCloseErrorPopup);
         document.removeEventListener('click', closeErrorPopup);
@@ -82,13 +82,13 @@
         }
       };
 
-      var newErrorPopup = errorPopupTemplate.cloneNode(true);
-      var errorButton = newErrorPopup.querySelector('.error__button');
+      var lastErrorPopup = errorPopupTemplate.cloneNode(true);
+      var errorButton = lastErrorPopup.querySelector('.error__button');
       errorButton.addEventListener('click', closeErrorPopup);
       document.addEventListener('keydown', onEscCloseErrorPopup);
       document.addEventListener('click', closeErrorPopup);
 
-      main.appendChild(newErrorPopup);
+      main.appendChild(lastErrorPopup);
     };
 
     var URL = 'https://javascript.pages.academy/keksobooking';
