@@ -1,5 +1,6 @@
 'use strict';
 (function () {
+  var MAX_OFFERS_NUMBER = 5;
   var INITIAL_FILTER_VALUES = {
     'housing-type': 'any',
     'housing-price': 'any',
@@ -76,11 +77,17 @@
       if ((it.offer.price > PriceFrames[FilterValue['housing-price']].max) || (it.offer.price < PriceFrames[FilterValue['housing-price']].min)) {
         return false;
       }
-
       return true;
     };
 
-    lastFilteredPins = filteredPins.filter(filterOffers);
+    for (var pin = 0; pin < filteredPins.length; pin++) {
+      if (filterOffers(filteredPins[pin])) {
+        lastFilteredPins.push(filteredPins[pin]);
+      }
+      if (lastFilteredPins.length === MAX_OFFERS_NUMBER) {
+        break;
+      }
+    }
 
     var updatePins = function () {
       if (document.querySelector('.map__card')) {
