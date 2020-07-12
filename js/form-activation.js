@@ -2,8 +2,7 @@
 (function () {
   // module4-task2
   var adForm = document.querySelector('.ad-form');
-  var adFormElements = adForm.children;
-  var mapFilters = document.querySelector('.map__filters').children;
+  var mapFilters = document.querySelector('.map__filters');
   var mapPinsField = document.querySelector('.map__pins');
   var addressField = document.querySelector('#address');
   var mainPin = document.querySelector('.map__pin--main');
@@ -33,8 +32,11 @@
   };
 
   var deactivatePage = function () {
-    disableElements(adFormElements);
-    disableElements(mapFilters);
+    disableElements(adForm.children);
+    disableElements(mapFilters.children);
+    if (document.querySelector('.map__card')) {
+      window.cardPopup.closePopup();
+    }
     if (!document.querySelector('.map').classList.contains('map--faded')) {
       document.querySelector('.map').classList.add('map--faded');
     }
@@ -51,24 +53,27 @@
       pinsForDelete[pin].remove();
     }
     adForm.reset();
+    mapFilters.reset();
+    window.filter.resetFilter();
+    mapFilters.removeEventListener('change', window.filter.onChangeFilters);
   };
 
   var activatePage = function () {
     if (!isPageActive) {
-      enableElements(adFormElements);
+      enableElements(adForm.children);
       document.querySelector('.map').classList.remove('map--faded');
       adForm.classList.remove('ad-form--disabled');
       window.formValidation.addFormValidationListeners();
       window.data.loadData(window.render.renderPins);
-      enableElements(mapFilters);
+      enableElements(mapFilters.children);
       addressField.value = getAddressCoords(mainPin);
       isPageActive = true;
+      mapFilters.addEventListener('change', window.filter.onChangeFilters);
     }
   };
 
   deactivatePage();
 
-  // Взаимодействие в меткой можно позже вынести в модуль map.js
   mainPin.addEventListener('mousedown', window.map.draggingPin);
 
   mainPin.addEventListener('keydown', function (evt) {
