@@ -1,5 +1,7 @@
 'use strict';
 (function () {
+  var MIN_NAME_LENGTH = 30;
+  var MAX_NAME_LENGTH = 100;
   var adForm = document.querySelector('.ad-form');
   var adTitle = adForm.querySelector('#title');
   var adPrice = adForm.querySelector('#price');
@@ -8,8 +10,6 @@
   var adTimeOut = adForm.querySelector('#timeout');
   var adRoomNumber = adForm.querySelector('#room_number');
   var adCapacity = adForm.querySelector('#capacity');
-  var MIN_NAME_LENGTH = 30;
-  var MAX_NAME_LENGTH = 100;
   var inputLength = 0;
   var RoomNumberValue = {
     ONE_ROOM: '1',

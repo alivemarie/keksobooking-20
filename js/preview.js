@@ -1,8 +1,8 @@
 'use strict';
 (function () {
-  var showPreview = function (fileChooser, filePreviewBlock) {
-    var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+  var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
+  var showPreview = function (fileChooser, filePreviewBlock) {
     fileChooser.addEventListener('change', function () {
       var file = fileChooser.files[0];
       var fileName = file.name.toLowerCase();

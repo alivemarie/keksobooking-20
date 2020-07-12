@@ -1,18 +1,6 @@
 'use strict';
 (function () {
   var MAX_OFFERS_NUMBER = 5;
-  var INITIAL_FILTER_VALUES = {
-    'housing-type': 'any',
-    'housing-price': 'any',
-    'housing-rooms': 'any',
-    'housing-guests': 'any',
-    'filter-wifi': false,
-    'filter-dishwasher': false,
-    'filter-parking': false,
-    'filter-washer': false,
-    'filter-elevator': false,
-    'filter-conditioner': false
-  };
 
   var PriceFrames = {
     'low': {
@@ -25,15 +13,30 @@
     },
     'high': {
       min: 50000,
-      max: 5000000000000
+      max: Infinity
     },
     'any': {
       min: 0,
-      max: 5000000000000
+      max: Infinity
     }
   };
 
-  var FilterValue = JSON.parse(JSON.stringify(INITIAL_FILTER_VALUES));
+  var createFilterValues = function () {
+    return {
+      'housing-type': 'any',
+      'housing-price': 'any',
+      'housing-rooms': 'any',
+      'housing-guests': 'any',
+      'filter-wifi': false,
+      'filter-dishwasher': false,
+      'filter-parking': false,
+      'filter-washer': false,
+      'filter-elevator': false,
+      'filter-conditioner': false
+    };
+  };
+
+  var FilterValue = createFilterValues();
 
   var onChangeFilters = function (evt) {
     if (evt.target.type === 'checkbox') {
@@ -101,7 +104,7 @@
 
   window.filter = {
     resetFilter: function () {
-      FilterValue = JSON.parse(JSON.stringify(INITIAL_FILTER_VALUES));
+      FilterValue = createFilterValues();
     },
     onChangeFilters: onChangeFilters
   };

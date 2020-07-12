@@ -1,10 +1,10 @@
 'use strict';
 (function () {
-  var mapPinsField = document.querySelector('.map__pins');
   var OFFERS_NUMBER = 5;
   var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
   // Генерируем пины на карте и добавляем на страницу с помощью Document Fragment
+  var mapPinsField = document.querySelector('.map__pins');
   var templatePin = document.querySelector('#pin').content.querySelector('button');
 
   var generatePin = function (pinData) {

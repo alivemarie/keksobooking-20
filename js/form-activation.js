@@ -1,5 +1,6 @@
 'use strict';
 (function () {
+  var PIN_LEG = 20;
   var pictureChooser = document.querySelector('#images');
   var picturePreviewBlock = document.querySelector('.ad-form__photo');
   var avatarChooser = document.querySelector('#avatar');
@@ -10,14 +11,12 @@
   var mapPinsField = document.querySelector('.map__pins');
   var addressField = document.querySelector('#address');
   var mainPin = document.querySelector('.map__pin--main');
-  var PIN_LEG = 20;
   var adFormReset = document.querySelector('.ad-form__reset');
   var isPageActive = false;
   var initialMainPinCoords = {
     x: mainPin.offsetLeft,
     y: mainPin.offsetTop
   };
-
 
   var getAddressCoords = function (currentPin) {
     return Math.round(currentPin.offsetLeft + currentPin.offsetWidth / 2) + ', ' + Math.round(currentPin.offsetTop + currentPin.offsetHeight + PIN_LEG);

@@ -1,7 +1,5 @@
 'use strict';
 (function () {
-  var addressField = document.querySelector('#address');
-  var mainPin = document.querySelector('.map__pin--main');
   var PIN_LEG = 20;
   var CoordLimit = {
     x: {
@@ -13,6 +11,8 @@
       max: 630
     }
   };
+  var addressField = document.querySelector('#address');
+  var mainPin = document.querySelector('.map__pin--main');
 
   window.map = {
     draggingPin: function (evt) {

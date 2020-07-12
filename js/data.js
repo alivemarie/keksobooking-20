@@ -21,7 +21,7 @@
     var statusCode = {
       OK: 200
     };
-    var ms = 1000;
+    var ms = 1000; // 1s
 
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
