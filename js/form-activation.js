@@ -1,6 +1,10 @@
 'use strict';
 (function () {
-  // module4-task2
+  var pictureChooser = document.querySelector('#images');
+  var picturePreviewBlock = document.querySelector('.ad-form__photo');
+  var avatarChooser = document.querySelector('#avatar');
+  var avatarPreviewBlock = document.querySelector('.ad-form-header__preview');
+  var avatarPreview = avatarPreviewBlock.querySelector('img');
   var adForm = document.querySelector('.ad-form');
   var mapFilters = document.querySelector('.map__filters');
   var mapPinsField = document.querySelector('.map__pins');
@@ -54,6 +58,8 @@
     }
     adForm.reset();
     mapFilters.reset();
+    avatarPreview.src = 'img/muffin-grey.svg';
+    picturePreviewBlock.innerHTML = '';
     window.filter.resetFilter();
     mapFilters.removeEventListener('change', window.filter.onChangeFilters);
   };
@@ -66,6 +72,8 @@
       window.formValidation.addFormValidationListeners();
       window.data.loadData(window.render.renderPins);
       enableElements(mapFilters.children);
+      window.preview.showPreview(avatarChooser, avatarPreviewBlock);
+      window.preview.showPreview(pictureChooser, picturePreviewBlock);
       addressField.value = getAddressCoords(mainPin);
       isPageActive = true;
       mapFilters.addEventListener('change', window.filter.onChangeFilters);
