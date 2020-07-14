@@ -1,5 +1,9 @@
 'use strict';
 (function () {
+  var KEY_CODE = {
+    ESCAPE: 'Escape'
+  };
+
   var GuestsNumber = {
     ONE_GUEST: 1,
     NO_GUESTS: 0
@@ -7,19 +11,19 @@
   var popupCloseButton;
   var templateCard = document.querySelector('#card').content.querySelector('article');
 
-  var onPopupEscPress = function (evt) {
-    if (evt.key === 'Escape') {
+  var onEscKeyDown = function (evt) {
+    if (evt.key === KEY_CODE.ESCAPE) {
       evt.preventDefault();
-      closePopup();
+      onCloseButtonClick();
     }
   };
 
-  var closePopup = function () {
+  var onCloseButtonClick = function () {
     var currentCard = document.querySelector('.map__card');
     if (currentCard) {
       popupCloseButton = document.querySelector('.popup__close');
-      popupCloseButton.removeEventListener('click', closePopup);
-      document.removeEventListener('keydown', onPopupEscPress);
+      popupCloseButton.removeEventListener('click', onCloseButtonClick);
+      document.removeEventListener('keydown', onEscKeyDown);
       currentCard.remove();
     }
   };
@@ -153,14 +157,14 @@
     onClickAddCard: function (pin, data) {
       pin.addEventListener('click', function () {
 
-        closePopup();
+        onCloseButtonClick();
 
         generateCard(data);
         popupCloseButton = document.querySelector('.popup__close');
-        popupCloseButton.addEventListener('click', closePopup);
-        document.addEventListener('keydown', onPopupEscPress);
+        popupCloseButton.addEventListener('click', onCloseButtonClick);
+        document.addEventListener('keydown', onEscKeyDown);
       });
     },
-    closePopup: closePopup
+    closePopup: onCloseButtonClick
   };
 })();

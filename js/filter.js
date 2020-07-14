@@ -38,7 +38,7 @@
 
   var FilterValue = createFilterValues();
 
-  var onChangeFilters = function (evt) {
+  var onFiltersChange = function (evt) {
     if (evt.target.type === 'checkbox') {
       FilterValue[evt.target.id] = !FilterValue[evt.target.id];
     } else {
@@ -101,6 +101,6 @@
 
   window.filter = {
     resetFilter: resetFilter,
-    onChangeFilters: onChangeFilters
+    onFiltersChange: onFiltersChange
   };
 })();

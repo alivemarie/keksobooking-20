@@ -5,6 +5,18 @@
   var StatusCode = {
     OK: 200
   };
+  var ERROR_MESSAGE_STYLE_SETTINGS = {
+    left: 0,
+    right: 0,
+    fontSize: '30px',
+    position: 'absolute',
+    style: 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;'
+  };
+
+  var RESPONSE_TYPES = {
+    JSON: 'json'
+  };
+
   var main = document.querySelector('main');
   var successPopupTemplate = document.querySelector('#success').content.querySelector('.success');
   var errorPopupTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -13,17 +25,17 @@
 
     var onErrorMessage = function (errorMessage) {
       var node = document.createElement('div');
-      node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
-      node.style.position = 'absolute';
-      node.style.left = 0;
-      node.style.right = 0;
-      node.style.fontSize = '30px';
+      node.style = ERROR_MESSAGE_STYLE_SETTINGS.style;
+      node.style.position = ERROR_MESSAGE_STYLE_SETTINGS.position;
+      node.style.left = ERROR_MESSAGE_STYLE_SETTINGS.left;
+      node.style.right = ERROR_MESSAGE_STYLE_SETTINGS.right;
+      node.style.fontSize = ERROR_MESSAGE_STYLE_SETTINGS.fontSize;
       node.textContent = errorMessage;
       document.body.insertAdjacentElement('afterbegin', node);
     };
 
     var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
+    xhr.responseType = RESPONSE_TYPES.JSON;
     xhr.addEventListener('load', function () {
       if (xhr.status === StatusCode.OK) {
         onLoad(xhr.response);
