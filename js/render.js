@@ -31,9 +31,9 @@
 
   var renderPins = function (data) {
     var pinsForDelete = mapPinsField.querySelectorAll('button:not(.map__pin--main)');
-    for (var pin = 0; pin < pinsForDelete.length; pin++) {
-      pinsForDelete[pin].remove();
-    }
+    pinsForDelete.forEach(function (element) {
+      element.remove();
+    });
     mapPinsField.appendChild(generateFragment(data));
   };
 

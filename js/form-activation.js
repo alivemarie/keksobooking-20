@@ -57,9 +57,9 @@
     addressField.value = Math.round(mainPin.offsetLeft + mainPin.offsetWidth / 2) + ', ' + Math.round(mainPin.offsetTop + mainPin.offsetHeight / 2);
     isPageActive = false;
     var pinsForDelete = mapPinsField.querySelectorAll('button:not(.map__pin--main)');
-    for (var pin = 0; pin < pinsForDelete.length; pin++) {
-      pinsForDelete[pin].remove();
-    }
+    pinsForDelete.forEach(function (element) {
+      element.remove();
+    });
     avatarPreview.src = 'img/muffin-grey.svg';
     picturePreviewBlock.innerHTML = '';
     window.filter.resetFilter();

@@ -10,6 +10,7 @@
   var adTimeOut = adForm.querySelector('#timeout');
   var adRoomNumber = adForm.querySelector('#room_number');
   var adCapacity = adForm.querySelector('#capacity');
+  var capacityOptions = adCapacity.querySelectorAll('option');
   var inputLength = 0;
   var RoomNumberValue = {
     ONE_ROOM: '1',
@@ -100,9 +101,9 @@
     adTimeIn.selectedIndex = adTimeOut.selectedIndex;
   };
   var onRoomNumberChange = function () {
-    for (var people = 0; people < adCapacity.length; people++) {
-      adCapacity[people].disabled = true;
-    }
+    capacityOptions.forEach(function (element) {
+      element.disabled = true;
+    });
     adCapacity.setCustomValidity('');
     switch (adRoomNumber.value) {
       case RoomNumberValue.ONE_ROOM:
