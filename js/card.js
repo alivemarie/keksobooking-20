@@ -1,5 +1,9 @@
 'use strict';
 (function () {
+  var GuestsNumber = {
+    ONE_GUEST: 1,
+    NO_GUESTS: 0
+  };
   var popupCloseButton;
   var templateCard = document.querySelector('#card').content.querySelector('article');
 
@@ -11,16 +15,17 @@
   };
 
   var closePopup = function () {
-    if (document.querySelector('.map__card')) {
+    var currentCard = document.querySelector('.map__card');
+    if (currentCard) {
       popupCloseButton = document.querySelector('.popup__close');
       popupCloseButton.removeEventListener('click', closePopup);
       document.removeEventListener('keydown', onPopupEscPress);
-      document.querySelector('.map__card').remove();
+      currentCard.remove();
     }
   };
 
   var generateCard = function (cardData) {
-    var propertyTypeDict = {
+    var PropertyType = {
       'bungalo': 'Бунгало',
       'palace': 'Дворец',
       'flat': 'Квартира',
@@ -32,25 +37,25 @@
     // Проверяем данные по комнатам и количеству гостей
     var cardTextCapacity = false;
     if (cardData.offer.rooms) {
-      if (cardData.offer.rooms === 1) {
+      if (cardData.offer.rooms.toString() === window.formValidation.RoomNumberValue.ONE_ROOM) {
         cardTextCapacity = cardData.offer.rooms + ' комната';
-      } else if (cardData.offer.rooms > 1) {
+      } else if (cardData.offer.rooms > window.formValidation.RoomNumberValue.ONE_ROOM) {
         cardTextCapacity = cardData.offer.rooms + ' комнаты';
       }
     }
-    if (cardData.offer.guests === 1) {
+    if (cardData.offer.guests === GuestsNumber.ONE_GUEST) {
       if (cardTextCapacity) {
         cardTextCapacity = cardTextCapacity + ', для ' + cardData.offer.guests + ' гостя';
       } else {
         cardTextCapacity = 'Для ' + cardData.offer.guests + ' гостя';
       }
-    } else if (cardData.offer.guests > 1) {
+    } else if (cardData.offer.guests > GuestsNumber.ONE_GUEST) {
       if (cardTextCapacity) {
         cardTextCapacity = cardTextCapacity + ', для ' + cardData.offer.guests + ' гостей';
       } else {
         cardTextCapacity = 'Для ' + cardData.offer.guests + ' гостей';
       }
-    } else if (cardData.offer.guests === 0) {
+    } else if (cardData.offer.guests === GuestsNumber.NO_GUESTS) {
       if (cardTextCapacity) {
         cardTextCapacity = cardTextCapacity + ', не для гостей';
       } else {
@@ -58,47 +63,52 @@
       }
     }
 
+    var popupTitle = openedCard.querySelector('.popup__title');
     if (cardData.offer.title) {
-      openedCard.querySelector('.popup__title').textContent = cardData.offer.title;
+      popupTitle.textContent = cardData.offer.title;
     } else {
-      openedCard.querySelector('.popup__title').classList.add('hidden');
+      popupTitle.classList.add('hidden');
     }
 
+    var popupAddress = openedCard.querySelector('.popup__text--address');
     if (cardData.offer.address) {
-      openedCard.querySelector('.popup__text--address').textContent = cardData.offer.address;
+      popupAddress.textContent = cardData.offer.address;
     } else {
-      openedCard.querySelector('.popup__text--address').classList.add('hidden');
+      popupAddress.classList.add('hidden');
     }
 
+    var popupPrice = openedCard.querySelector('.popup__text--price');
     if (cardData.offer.price) {
-      openedCard.querySelector('.popup__text--price').textContent = cardData.offer.price + 'Р/ночь';
+      popupPrice.textContent = cardData.offer.price + 'Р/ночь';
     } else {
-      openedCard.querySelector('.popup__text--price').classList.add('hidden');
+      popupPrice.classList.add('hidden');
     }
 
+    var popupType = openedCard.querySelector('.popup__type');
     if (cardData.offer.type) {
-      openedCard.querySelector('.popup__type').textContent = propertyTypeDict[cardData.offer.type];
+      popupType.textContent = PropertyType[cardData.offer.type];
     } else {
-      openedCard.querySelector('.popup__type').classList.add('hidden');
+      popupType.classList.add('hidden');
     }
 
+    var popupCapacity = openedCard.querySelector('.popup__text--capacity');
     if (cardTextCapacity) {
-      openedCard.querySelector('.popup__text--capacity').textContent = cardTextCapacity;
+      popupCapacity.textContent = cardTextCapacity;
     } else {
-      openedCard.querySelector('.popup__text--capacity').classList.add('hidden');
+      popupCapacity.classList.add('hidden');
     }
 
-
+    var popupTime = openedCard.querySelector('.popup__text--time');
     if ((cardData.offer.checkin) && (cardData.offer.checkout)) {
-      openedCard.querySelector('.popup__text--time').textContent = 'Заезд после '
+      popupTime.textContent = 'Заезд после '
           + cardData.offer.checkin + ', выезд до ' + cardData.offer.checkout;
     } else if ((cardData.offer.checkin) && (!cardData.offer.checkout)) {
-      openedCard.querySelector('.popup__text--time').textContent = 'Заезд после '
+      popupTime.textContent = 'Заезд после '
           + cardData.offer.checkin;
     } else if ((!cardData.offer.checkin) && (cardData.offer.checkout)) {
-      openedCard.querySelector('.popup__text--time').textContent = 'Выезд до ' + cardData.offer.checkout;
+      popupTime.textContent = 'Выезд до ' + cardData.offer.checkout;
     } else if ((!cardData.offer.checkin) && (!cardData.offer.checkout)) {
-      openedCard.querySelector('.popup__text--time').classList.add('hidden');
+      popupTime.classList.add('hidden');
     }
 
     for (var feature = 0; feature < window.render.FEATURES.length; feature++) {
@@ -108,16 +118,18 @@
       }
     }
 
+    var popupDescription = openedCard.querySelector('.popup__description');
     if (cardData.offer.description) {
-      openedCard.querySelector('.popup__description').textContent = cardData.offer.description;
+      popupDescription.textContent = cardData.offer.description;
     } else {
-      openedCard.querySelector('.popup__description').classList.add('hidden');
+      popupDescription.classList.add('hidden');
     }
 
+    var popupAvatar = openedCard.querySelector('.popup__avatar');
     if (cardData.author.avatar) {
-      openedCard.querySelector('.popup__avatar').src = cardData.author.avatar;
+      popupAvatar.src = cardData.author.avatar;
     } else {
-      openedCard.querySelector('.popup__avatar').classList.add('hidden');
+      popupAvatar.classList.add('hidden');
     }
 
     var offerPhoto = openedCard.querySelector('.popup__photo');
@@ -147,11 +159,8 @@
         popupCloseButton = document.querySelector('.popup__close');
         popupCloseButton.addEventListener('click', closePopup);
         document.addEventListener('keydown', onPopupEscPress);
-
-        window.cardPopup = {
-          closePopup: closePopup
-        };
       });
-    }
+    },
+    closePopup: closePopup
   };
 })();

@@ -1,14 +1,14 @@
 'use strict';
 (function () {
   var PIN_LEG = 20;
-  var CoordLimit = {
+  var CoordsLimit = {
     x: {
-      min: 0,
-      max: 1200
+      MIN: 0,
+      MAX: 1200
     },
     y: {
-      min: 130,
-      max: 630
+      MIN: 130,
+      MAX: 630
     }
   };
   var addressField = document.querySelector('#address');
@@ -41,15 +41,15 @@
           mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
           mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
 
-          if (mainPin.offsetTop > CoordLimit.y.max - mainPin.offsetHeight - PIN_LEG) {
-            mainPin.style.top = CoordLimit.y.max - mainPin.offsetHeight - PIN_LEG + 'px';
-          } else if (mainPin.offsetTop < CoordLimit.y.min - mainPin.offsetHeight - PIN_LEG) {
-            mainPin.style.top = CoordLimit.y.min - mainPin.offsetHeight - PIN_LEG + 'px';
+          if (mainPin.offsetTop > CoordsLimit.y.MAX - mainPin.offsetHeight - PIN_LEG) {
+            mainPin.style.top = CoordsLimit.y.MAX - mainPin.offsetHeight - PIN_LEG + 'px';
+          } else if (mainPin.offsetTop < CoordsLimit.y.MIN - mainPin.offsetHeight - PIN_LEG) {
+            mainPin.style.top = CoordsLimit.y.MIN - mainPin.offsetHeight - PIN_LEG + 'px';
           }
-          if (mainPin.offsetLeft > CoordLimit.x.max - mainPin.offsetWidth / 2) {
-            mainPin.style.left = CoordLimit.x.max - mainPin.offsetWidth / 2 + 'px';
-          } else if (mainPin.offsetLeft < CoordLimit.x.min - mainPin.offsetWidth / 2) {
-            mainPin.style.left = CoordLimit.x.min - mainPin.offsetWidth / 2 + 'px';
+          if (mainPin.offsetLeft > CoordsLimit.x.MAX - mainPin.offsetWidth / 2) {
+            mainPin.style.left = CoordsLimit.x.MAX - mainPin.offsetWidth / 2 + 'px';
+          } else if (mainPin.offsetLeft < CoordsLimit.x.MIN - mainPin.offsetWidth / 2) {
+            mainPin.style.left = CoordsLimit.x.MIN - mainPin.offsetWidth / 2 + 'px';
           }
           addressField.value = window.formActivation.getAddressCoords(mainPin);
         };

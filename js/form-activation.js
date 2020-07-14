@@ -12,14 +12,17 @@
   var addressField = document.querySelector('#address');
   var mainPin = document.querySelector('.map__pin--main');
   var adFormReset = document.querySelector('.ad-form__reset');
+  var map = document.querySelector('.map');
   var isPageActive = false;
   var initialMainPinCoords = {
     x: mainPin.offsetLeft,
     y: mainPin.offsetTop
   };
+  var URL_GET = 'https://javascript.pages.academy/keksobooking/data';
+  var URL_POST = 'https://javascript.pages.academy/keksobooking';
 
   var getAddressCoords = function (currentPin) {
-    return Math.round(currentPin.offsetLeft + currentPin.offsetWidth / 2) + ', ' + Math.round(currentPin.offsetTop + currentPin.offsetHeight + PIN_LEG);
+    return Math.round(currentPin.offsetLeft + Math.floor(currentPin.offsetWidth / 2)) + ', ' + Math.round(currentPin.offsetTop + currentPin.offsetHeight + PIN_LEG);
   };
 
   var disableElements = function (parent) {
@@ -38,15 +41,17 @@
     disableElements(adForm.children);
     disableElements(mapFilters.children);
     if (document.querySelector('.map__card')) {
-      window.cardPopup.closePopup();
+      window.card.closePopup();
     }
-    if (!document.querySelector('.map').classList.contains('map--faded')) {
-      document.querySelector('.map').classList.add('map--faded');
+    if (!map.classList.contains('map--faded')) {
+      map.classList.add('map--faded');
     }
     if (!adForm.classList.contains('ad-form--disabled')) {
       adForm.classList.add('ad-form--disabled');
     }
     window.formValidation.removeFormValidationListeners();
+    adForm.reset();
+    mapFilters.reset();
     mainPin.style.left = initialMainPinCoords.x + 'px';
     mainPin.style.top = initialMainPinCoords.y + 'px';
     addressField.value = Math.round(mainPin.offsetLeft + mainPin.offsetWidth / 2) + ', ' + Math.round(mainPin.offsetTop + mainPin.offsetHeight / 2);
@@ -55,8 +60,6 @@
     for (var pin = 0; pin < pinsForDelete.length; pin++) {
       pinsForDelete[pin].remove();
     }
-    adForm.reset();
-    mapFilters.reset();
     avatarPreview.src = 'img/muffin-grey.svg';
     picturePreviewBlock.innerHTML = '';
     window.filter.resetFilter();
@@ -66,10 +69,10 @@
   var activatePage = function () {
     if (!isPageActive) {
       enableElements(adForm.children);
-      document.querySelector('.map').classList.remove('map--faded');
+      map.classList.remove('map--faded');
       adForm.classList.remove('ad-form--disabled');
       window.formValidation.addFormValidationListeners();
-      window.data.loadData(window.render.renderPins);
+      window.data.loadData(window.render.renderPins, URL_GET);
       enableElements(mapFilters.children);
       window.preview.showPreview(avatarChooser, avatarPreviewBlock);
       window.preview.showPreview(pictureChooser, picturePreviewBlock);
@@ -104,7 +107,7 @@
   });
 
   adForm.addEventListener('submit', function (evt) {
-    window.data.sendData(new FormData(adForm));
+    window.data.sendData(new FormData(adForm, URL_POST));
     evt.preventDefault();
     deactivatePage();
   });

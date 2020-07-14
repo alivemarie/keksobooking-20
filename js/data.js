@@ -1,10 +1,15 @@
 'use strict';
 (function () {
+  var MS = 1000; // 1s
+  var TIMEOUT_SECONDS = 10;
+  var StatusCode = {
+    OK: 200
+  };
   var main = document.querySelector('main');
   var successPopupTemplate = document.querySelector('#success').content.querySelector('.success');
   var errorPopupTemplate = document.querySelector('#error').content.querySelector('.error');
 
-  var loadData = function (onLoad) {
+  var loadData = function (onLoad, url) {
 
     var onErrorMessage = function (errorMessage) {
       var node = document.createElement('div');
@@ -17,17 +22,10 @@
       document.body.insertAdjacentElement('afterbegin', node);
     };
 
-    var URL = 'https://javascript.pages.academy/keksobooking/data';
-    var statusCode = {
-      OK: 200
-    };
-    var ms = 1000; // 1s
-
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
-
     xhr.addEventListener('load', function () {
-      if (xhr.status === statusCode.OK) {
+      if (xhr.status === StatusCode.OK) {
         onLoad(xhr.response);
         window.loadedData = xhr.response;
       } else {
@@ -40,12 +38,12 @@
     xhr.addEventListener('timeout', function () {
       onErrorMessage('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
-    xhr.timeout = 10 * ms;
-    xhr.open('GET', URL);
+    xhr.timeout = TIMEOUT_SECONDS * MS;
+    xhr.open('GET', url);
     xhr.send();
   };
 
-  var sendData = function (data) {
+  var sendData = function (data, url) {
     var onSuccess = function () {
       var closeSuccessPopup = function () {
         lastSuccessPopup.remove();
@@ -91,20 +89,18 @@
       main.appendChild(lastErrorPopup);
     };
 
-    var URL = 'https://javascript.pages.academy/keksobooking';
-    var statusCode = {
-      OK: 200
-    };
-
     var xhr = new XMLHttpRequest();
     xhr.addEventListener('load', function () {
-      if (xhr.status === statusCode.OK) {
+      if (xhr.status === StatusCode.OK) {
         onSuccess();
       } else {
         onError();
       }
     });
-    xhr.open('POST', URL);
+    xhr.addEventListener('error', function () {
+      onError();
+    });
+    xhr.open('POST', url);
     xhr.send(data);
   };
 

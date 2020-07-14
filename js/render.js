@@ -29,15 +29,17 @@
     return fragment;
   };
 
+  var renderPins = function (data) {
+    var pinsForDelete = mapPinsField.querySelectorAll('button:not(.map__pin--main)');
+    for (var pin = 0; pin < pinsForDelete.length; pin++) {
+      pinsForDelete[pin].remove();
+    }
+    mapPinsField.appendChild(generateFragment(data));
+  };
+
   window.render = {
     FEATURES: FEATURES,
-    renderPins: function (data) {
-      var pinsForDelete = mapPinsField.querySelectorAll('button:not(.map__pin--main)');
-      for (var pin = 0; pin < pinsForDelete.length; pin++) {
-        pinsForDelete[pin].remove();
-      }
-      mapPinsField.appendChild(generateFragment(data));
-    }
+    renderPins: renderPins
   };
 
 })();

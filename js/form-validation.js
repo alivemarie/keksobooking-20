@@ -23,6 +23,28 @@
     THREE_GUESTS: 0,
     NO_GUESTS: 3
   };
+  var PropertyPrice = {
+    FLAT: {
+      VALUE: 'flat',
+      MIN: 1000,
+      PLACEHOLDER: '1000'
+    },
+    HOUSE: {
+      VALUE: 'house',
+      MIN: 5000,
+      PLACEHOLDER: '6000'
+    },
+    PALACE: {
+      VALUE: 'palace',
+      MIN: 10000,
+      PLACEHOLDER: '10000'
+    },
+    BUNGALO: {
+      VALUE: 'bungalo',
+      MIN: 0,
+      PLACEHOLDER: '100'
+    }
+  };
   var onTitleInput = function () {
     inputLength = adTitle.value.length;
     if (inputLength < MIN_NAME_LENGTH) {
@@ -53,21 +75,21 @@
   };
   var onPropertyTypeChange = function () {
     switch (adPropertyType.value) {
-      case 'flat':
-        adPrice.min = 1000;
-        adPrice.placeholder = '1000';
+      case PropertyPrice.FLAT.VALUE:
+        adPrice.min = PropertyPrice.FLAT.MIN;
+        adPrice.placeholder = PropertyPrice.FLAT.PLACEHOLDER;
         break;
-      case 'house':
-        adPrice.min = 5000;
-        adPrice.placeholder = '6000';
+      case PropertyPrice.HOUSE.VALUE:
+        adPrice.min = PropertyPrice.HOUSE.MIN;
+        adPrice.placeholder = PropertyPrice.HOUSE.PLACEHOLDER;
         break;
-      case 'palace':
-        adPrice.min = 10000;
-        adPrice.placeholder = '10000';
+      case PropertyPrice.PALACE.VALUE:
+        adPrice.min = PropertyPrice.PALACE.MIN;
+        adPrice.placeholder = PropertyPrice.PALACE.PLACEHOLDER;
         break;
-      case 'bungalo':
-        adPrice.min = 0;
-        adPrice.placeholder = '100';
+      case PropertyPrice.BUNGALO.VALUE:
+        adPrice.min = PropertyPrice.BUNGALO.MIN;
+        adPrice.placeholder = PropertyPrice.BUNGALO.PLACEHOLDER;
         break;
     }
   };
@@ -112,7 +134,7 @@
     }
   };
   var onCapacityChange = function () {
-    if ((adCapacity.selectedIndex !== 2) && (adRoomNumber.value === '1')) {
+    if ((adCapacity.selectedIndex !== CapacityValue.ONE_GUEST) && (adRoomNumber.value === RoomNumberValue.ONE_ROOM)) {
       adCapacity.setCustomValidity('Не совпадает количество людей и комнат, выберите другие значения');
     } else {
       adCapacity.setCustomValidity('');
@@ -138,6 +160,7 @@
       adTimeOut.removeEventListener('change', onTimeOutChange);
       adRoomNumber.removeEventListener('change', onRoomNumberChange);
       adCapacity.removeEventListener('change', onCapacityChange);
-    }
+    },
+    RoomNumberValue: RoomNumberValue
   };
 })();

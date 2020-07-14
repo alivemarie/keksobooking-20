@@ -1,6 +1,10 @@
 'use strict';
 (function () {
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+  var PreviewSize = {
+    WIDTH: '40px',
+    HEIGHT: '44px'
+  };
 
   var showPreview = function (fileChooser, filePreviewBlock) {
     fileChooser.addEventListener('change', function () {
@@ -17,8 +21,8 @@
         if (!filePreviewBlock.querySelector('img')) {
           var filePreview = document.createElement('img');
           filePreview.alt = 'Фотография жилья';
-          filePreview.style.width = '40px';
-          filePreview.style.height = '44px';
+          filePreview.style.width = PreviewSize.WIDTH;
+          filePreview.style.height = PreviewSize.HEIGHT;
           filePreviewBlock.appendChild(filePreview);
         } else {
           filePreview = filePreviewBlock.querySelector('img');
