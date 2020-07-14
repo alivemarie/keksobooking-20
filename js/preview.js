@@ -20,6 +20,7 @@
 
         if (!filePreviewBlock.querySelector('img')) {
           var filePreview = document.createElement('img');
+          filePreviewBlock.style = 'display: flex; align-items: center; padding: 0 15px';
           filePreview.alt = 'Фотография жилья';
           filePreview.style.width = PreviewSize.WIDTH;
           filePreview.style.height = PreviewSize.HEIGHT;

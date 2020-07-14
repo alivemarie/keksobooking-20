@@ -56,7 +56,7 @@
   };
 
   var onAdFormSubmit = function (evt) {
-    window.data.sendData(new FormData(adForm, URL_POST));
+    window.data.sendData(new FormData(adForm), URL_POST);
     evt.preventDefault();
     deactivatePage();
   };
