@@ -69,6 +69,9 @@
   };
 
   var deactivatePage = function () {
+    // Восстанавливаем изначальные значения для полей
+    window.formValidation.recoverInitialValues();
+
     // Деактивируем элементы формы с фильтрами и формы с полями ввода
     disableElements(adForm.children);
     disableElements(mapFilters.children);

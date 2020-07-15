@@ -94,6 +94,10 @@
         break;
     }
   };
+  var recoverInitialValues = function () {
+    adPrice.min = PropertyPrice.BUNGALO.MIN;
+    adPrice.placeholder = PropertyPrice.BUNGALO.PLACEHOLDER;
+  };
   var onTimeInChange = function () {
     adTimeOut.selectedIndex = adTimeIn.selectedIndex;
   };
@@ -162,6 +166,7 @@
       adRoomNumber.removeEventListener('change', onRoomNumberChange);
       adCapacity.removeEventListener('change', onCapacityChange);
     },
+    recoverInitialValues: recoverInitialValues,
     RoomNumberValue: RoomNumberValue
   };
 })();
