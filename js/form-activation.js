@@ -58,7 +58,6 @@
   var onAdFormSubmit = function (evt) {
     window.data.sendData(new FormData(adForm), URL_POST);
     evt.preventDefault();
-    deactivatePage();
   };
 
   var onMainPinKeyDown = function (evt) {
@@ -166,6 +165,7 @@
 
   window.formActivation = {
     activatePage: activatePage,
+    deactivatePage: deactivatePage,
     getAddressCoords: getAddressCoords,
   };
 })();

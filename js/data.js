@@ -75,6 +75,7 @@
       document.addEventListener('keydown', onEscCloseSuccessPopup);
 
       main.appendChild(lastSuccessPopup);
+      window.formActivation.deactivatePage();
     };
 
     var onError = function () {
