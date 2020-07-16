@@ -33,7 +33,7 @@
     HOUSE: {
       VALUE: 'house',
       MIN: 5000,
-      PLACEHOLDER: '6000'
+      PLACEHOLDER: '5000'
     },
     PALACE: {
       VALUE: 'palace',
@@ -43,7 +43,7 @@
     BUNGALO: {
       VALUE: 'bungalo',
       MIN: 0,
-      PLACEHOLDER: '100'
+      PLACEHOLDER: '1000'
     }
   };
   var onTitleInput = function () {
