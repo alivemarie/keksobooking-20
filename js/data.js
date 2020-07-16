@@ -23,7 +23,7 @@
 
   var loadData = function (onLoad, url) {
 
-    var onErrorMessage = function (errorMessage) {
+    var showErrorMessage = function (errorMessage) {
       var node = document.createElement('div');
       node.style = ERROR_MESSAGE_STYLE_SETTINGS.style;
       node.style.position = ERROR_MESSAGE_STYLE_SETTINGS.position;
@@ -41,14 +41,14 @@
         onLoad(xhr.response);
         window.loadedData = xhr.response;
       } else {
-        onErrorMessage('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        showErrorMessage('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
     xhr.addEventListener('error', function () {
-      onErrorMessage('Произошла ошибка соединения');
+      showErrorMessage('Произошла ошибка соединения');
     });
     xhr.addEventListener('timeout', function () {
-      onErrorMessage('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+      showErrorMessage('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
     xhr.timeout = TIMEOUT_SECONDS * MS;
     xhr.open('GET', url);
@@ -57,21 +57,21 @@
 
   var sendData = function (data, url) {
     var onSuccess = function () {
-      var closeSuccessPopup = function () {
+      var onSuccessPopupClick = function () {
         lastSuccessPopup.remove();
-        document.removeEventListener('click', closeSuccessPopup);
+        document.removeEventListener('click', onSuccessPopupClick);
         document.removeEventListener('keydown', onEscCloseSuccessPopup);
       };
 
       var onEscCloseSuccessPopup = function (evt) {
         if (evt.key === 'Escape') {
           evt.preventDefault();
-          closeSuccessPopup();
+          onSuccessPopupClick();
         }
       };
 
       var lastSuccessPopup = successPopupTemplate.cloneNode(true);
-      document.addEventListener('click', closeSuccessPopup);
+      document.addEventListener('click', onSuccessPopupClick);
       document.addEventListener('keydown', onEscCloseSuccessPopup);
 
       main.appendChild(lastSuccessPopup);
@@ -79,25 +79,25 @@
     };
 
     var onError = function () {
-      var closeErrorPopup = function () {
+      var onErrorPopupClick = function () {
         lastErrorPopup.remove();
-        document.removeEventListener('click', closeErrorPopup);
+        document.removeEventListener('click', onErrorPopupClick);
         document.removeEventListener('keydown', onEscCloseErrorPopup);
-        document.removeEventListener('click', closeErrorPopup);
+        document.removeEventListener('click', onErrorPopupClick);
       };
 
       var onEscCloseErrorPopup = function (evt) {
         if (evt.key === 'Escape') {
           evt.preventDefault();
-          closeErrorPopup();
+          onErrorPopupClick();
         }
       };
 
       var lastErrorPopup = errorPopupTemplate.cloneNode(true);
       var errorButton = lastErrorPopup.querySelector('.error__button');
-      errorButton.addEventListener('click', closeErrorPopup);
+      errorButton.addEventListener('click', onErrorPopupClick);
       document.addEventListener('keydown', onEscCloseErrorPopup);
-      document.addEventListener('click', closeErrorPopup);
+      document.addEventListener('click', onErrorPopupClick);
 
       main.appendChild(lastErrorPopup);
     };

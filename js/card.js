@@ -153,18 +153,20 @@
     document.querySelector('.map__filters-container').before(openedCard);
   };
 
+  var onClickAddCard = function (pin, data) {
+    pin.addEventListener('click', function () {
+
+      onCloseButtonClick();
+
+      generateCard(data);
+      popupCloseButton = document.querySelector('.popup__close');
+      popupCloseButton.addEventListener('click', onCloseButtonClick);
+      document.addEventListener('keydown', onEscKeyDown);
+    });
+  };
+
   window.card = {
-    onClickAddCard: function (pin, data) {
-      pin.addEventListener('click', function () {
-
-        onCloseButtonClick();
-
-        generateCard(data);
-        popupCloseButton = document.querySelector('.popup__close');
-        popupCloseButton.addEventListener('click', onCloseButtonClick);
-        document.addEventListener('keydown', onEscKeyDown);
-      });
-    },
+    onClickAddCard: onClickAddCard,
     closePopup: onCloseButtonClick
   };
 })();
