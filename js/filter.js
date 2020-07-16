@@ -8,7 +8,7 @@
       max: 9999
     },
     'middle': {
-      min: 1000,
+      min: 10000,
       max: 50000
     },
     'high': {
