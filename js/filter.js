@@ -46,7 +46,7 @@
     }
 
     try {
-      var filteredPins = window.loadedData.slice();
+      var filteredPins = window.verifiedData.slice();
     } catch (err) {
       filteredPins = [];
     }

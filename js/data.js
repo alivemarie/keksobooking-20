@@ -39,7 +39,12 @@
     xhr.addEventListener('load', function () {
       if (xhr.status === StatusCode.OK) {
         onLoad(xhr.response);
-        window.loadedData = xhr.response;
+        var dataFromServer = xhr.response;
+
+        // Валидируем данные по наличию поля offer
+        window.verifiedData = dataFromServer.filter(function (it) {
+          return it.offer;
+        });
       } else {
         showErrorMessage('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
