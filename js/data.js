@@ -79,6 +79,10 @@
     };
 
     var onError = function () {
+      var previousErrorMessage = document.querySelector('.error');
+      if (previousErrorMessage) {
+        previousErrorMessage.remove();
+      }
       var onErrorPopupClick = function () {
         lastErrorPopup.remove();
         document.removeEventListener('click', onErrorPopupClick);
