@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  var OFFERS_NUMBER = 5;
+  var OFFERS_NUMBER = 12;
   var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
   // Генерируем пины на карте и добавляем на страницу с помощью Document Fragment

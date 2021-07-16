@@ -1,8 +1,8 @@
 'use strict';
 (function () {
   var PIN_LEG = 20;
-  var URL_GET = 'https://javascript.pages.academy/keksobooking/data';
-  var URL_POST = 'https://javascript.pages.academy/keksobooking';
+  var URL_GET = 'http://localhost:5000/cards';
+  var URL_POST = 'http://localhost:5000/cards';
   var KEY_CODE = {
     ENTER: 'Enter'
   };
